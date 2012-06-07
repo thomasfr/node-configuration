@@ -4,7 +4,9 @@
   "description": "Very Light-Weight Configuration Class",
   "version": "0.0.1",
   "homepage": "http://github.com/thomasfr",
-  "dependencies": {},
+  "dependencies": {
+		"underscore": "latest"
+  },
   "devDependencies": {},
   "optionalDependencies": {},
   "engines": {
