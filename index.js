@@ -1,14 +1,13 @@
 var util = require('util');
-var events = require('events');
+var EventEmitter = require('events').EventEmitter;
 var underscore = require('underscore');
 
 var Configuration = function Configuration(defaults) {
     "use strict";
-    events.EventEmitter.call(this);
+    EventEmitter.call(this);
     this.data = defaults || {};
 };
-
-util.inherits(Configuration, events.EventEmitter);
+util.inherits(Configuration, EventEmitter);
 
 Configuration.prototype.add = function set(key, value) {
     "use strict";
@@ -17,7 +16,7 @@ Configuration.prototype.add = function set(key, value) {
         this.emit('change', this.data[key]);
     } else {
         this.data[key] = value;
-        this.emit('set', this.data[key]);
+        this.emit('add', this.data[key]);
     }
 };
 
@@ -43,6 +42,7 @@ Configuration.prototype.has = function has(key) {
 Configuration.prototype.set = function setAll(config) {
     "use strict";
     var that = this;
+    this.emit('set', config);
     underscore.each(config, function (value, key) {
         that.add(key, value);
     });
