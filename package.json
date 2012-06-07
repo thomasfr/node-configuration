@@ -1,15 +1,21 @@
 {
-  "author": "Thomas Fritz <fritztho@gmail.com>",
-  "name": "Configuration",
-  "description": "Very Light-Weight Configuration Class",
-  "version": "0.0.1",
-  "homepage": "http://github.com/thomasfr",
-  "dependencies": {
-		"underscore": "latest"
-  },
-  "devDependencies": {},
-  "optionalDependencies": {},
-  "engines": {
-    "node": "*"
-  }
+    "author":"Thomas Fritz <fritztho@gmail.com>",
+    "name":"configuration",
+    "description":"Basic Low-level Light-Weight Configuration Class extending EventEmitter",
+    "version":"0.0.1",
+		"usage":"Configuration",
+    "homepage":"https://github.com/thomasfr/node-configuration",
+    "repository":{
+        "type":"git",
+        "url":"https://github.com/thomasfr/node-Configuration.git"
+    },
+    "dependencies":{
+        "underscore":"latest"
+    },
+    "engines":{
+        "node":">= 0.6.0"
+    },
+    "devDependencies":{},
+    "optionalDependencies":{},
+    "keywords":["configuration", "config", "setup", "configure"]
 }
