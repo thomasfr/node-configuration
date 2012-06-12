@@ -9,14 +9,14 @@ var Configuration = function Configuration(defaults) {
 };
 util.inherits(Configuration, EventEmitter);
 
-Configuration.prototype.add = function set(key, value) {
+Configuration.prototype.set = function set(key, value) {
     "use strict";
     if (this.data[key]) {
         this.data[key] = value;
-        this.emit('change', this.data[key]);
+        this.emit('change', key, this.data[key]);
     } else {
         this.data[key] = value;
-        this.emit('add', this.data[key]);
+        this.emit('set', key, this.data[key]);
     }
 };
 
@@ -28,7 +28,7 @@ Configuration.prototype.get = function get(key) {
 Configuration.prototype.remove = function remove(key) {
     "use strict";
     if (this.data[key]) {
-        this.emit('remove', this.data[key]);
+        this.emit('remove', key, this.data[key]);
         delete this.data[key];
         this.data[key] = null;
     }
@@ -39,10 +39,10 @@ Configuration.prototype.has = function has(key) {
     return this.data[key] ? true : false;
 };
 
-Configuration.prototype.set = function setAll(config) {
+Configuration.prototype.setAll = function setAll(config) {
     "use strict";
     var that = this;
-    this.emit('set', config);
+    this.emit('setAll', config);
     underscore.each(config, function (value, key) {
         that.add(key, value);
     });
