@@ -69,27 +69,6 @@ describe('configuration', function () {
             });
             configuration.set('eventKey', 'new value');
         });
-
-        describe('sub configuration', function () {
-            var configuration = new Configuration();
-            it('should create sub configuration objects  without errors', function (done) {
-                configuration.set('subkey', {host: "127.0.0.1", port: 6339});
-                done();
-            });
-            it('should be possible to access sub keys', function (done) {
-                configuration.get('subkey').get('host').should.equal('127.0.0.1');
-                configuration.get('subkey').get('port').should.equal(6339);
-                done();
-            });
-            it('should return an instanceof Configuration', function (done) {
-                configuration.set('testsubkey', {foo: 'bar'}).should.be.an.instanceof(Configuration);
-                done();
-            });
-            it('should not return the same configuration instance', function (done) {
-                configuration.set('testsubkey2', {foo: 'bar'}).should.not.equal(configuration);
-                done();
-            })
-        })
     });
 
     describe('#remove()', function () {

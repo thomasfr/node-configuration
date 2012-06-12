@@ -19,14 +19,7 @@ Configuration.prototype.set = function set(key, value) {
     } else {
         event = 'set';
     }
-    if (underscore.isObject(value)) {
-        var subConfig = new Configuration();
-        subConfig.setAll(value);
-        ret = subConfig;
-        this.data[key] = subConfig;
-    } else {
-        this.data[key] = value;
-    }
+    this.data[key] = value;
     this.emit(event, key, this.data[key]);
     this.emit(event + ':' + key, this.data[key]);
     return ret;
