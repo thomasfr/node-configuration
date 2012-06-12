@@ -1,12 +1,15 @@
 var Configuration = require('../');
+var should = require('should');
 
 describe('configuration', function () {
 
+    "use strict";
+
     describe('defaults', function () {
         var configuration = new Configuration({
-            str:"bar",
-            bool:true,
-            num:42
+            str: "bar",
+            bool: true,
+            num: 42
         });
         it("should contain default string value", function (done) {
             configuration.get('str').should.equal('bar');
@@ -14,7 +17,7 @@ describe('configuration', function () {
         });
         it("should contain default boolean value", function (done) {
             configuration.get('bool').should.equal(true);
-            done()
+            done();
         });
         it("should contain default numeric value", function (done) {
             configuration.get('num').should.equal(42);
@@ -38,8 +41,16 @@ describe('configuration', function () {
             configuration.set('key', 'value');
             done();
         });
-        it('should return the right values', function (done) {
+        it('should return the correct values', function (done) {
             configuration.get('key').should.equal('value');
+            done();
+        });
+        it('should return an instance of configuration', function (done) {
+            configuration.set('foo', 'bar').should.be.an.instanceOf(Configuration);
+            done();
+        });
+        it('should return the same instance', function (done) {
+            configuration.set('foo', 'bar').should.equal(configuration);
             done();
         });
         it('should emit a "set" event with the right key and value', function (done) {
@@ -57,9 +68,29 @@ describe('configuration', function () {
                 done();
             });
             configuration.set('eventKey', 'new value');
+        });
+
+        describe('sub configuration', function () {
+            var configuration = new Configuration();
+            it('should create sub configuration objects  without errors', function (done) {
+                configuration.set('subkey', {host: "127.0.0.1", port: 6339});
+                done();
+            });
+            it('should be possible to access sub keys', function (done) {
+                configuration.get('subkey').get('host').should.equal('127.0.0.1');
+                configuration.get('subkey').get('port').should.equal(6339);
+                done();
+            });
+            it('should return an instanceof Configuration', function (done) {
+                configuration.set('testsubkey', {foo: 'bar'}).should.be.an.instanceof(Configuration);
+                done();
+            });
+            it('should not return the same configuration instance', function (done) {
+                configuration.set('testsubkey2', {foo: 'bar'}).should.not.equal(configuration);
+                done();
+            })
         })
     });
-
 
     describe('#remove()', function () {
         var configuration = new Configuration();
@@ -85,7 +116,7 @@ describe('configuration', function () {
 
     describe('#has()', function () {
         var configuration = new Configuration({
-            foo:"bar"
+            foo: "bar"
         });
         it('should be possible to check for values without errors', function (done) {
             configuration.has('foo');
@@ -99,7 +130,46 @@ describe('configuration', function () {
             configuration.has('notakey').should.equal(false);
             done();
         });
-    })
+    });
 
+    describe('#removeAll()', function () {
+        var configuration;
+        beforeEach(function () {
+            configuration = new Configuration();
+            configuration.set('foo', 'bar');
+        });
+        it('should be empty after calling removeAll()', function (done) {
+            configuration.removeAll().isEmpty().should.be.true;
+            done();
+        });
+        it('should not return any previously set key', function (done) {
+            should.not.exist(configuration.removeAll().get('foo'));
+            done();
+        });
+        it('should return same configuration instance', function (done) {
+            configuration.removeAll().should.equal(configuration);
+            done();
+        });
+    });
+
+    describe('#reset()', function () {
+        var configuration;
+        beforeEach(function () {
+            configuration = new Configuration({key: "value"});
+            configuration.set('foo', 'bar');
+        });
+        it('should not be empty after reset', function (done) {
+            configuration.reset().isEmpty().should.be.false;
+            done();
+        });
+        it('should not contain set keys', function (done) {
+            should.not.exist(configuration.reset().get('foo'));
+            done();
+        });
+        it('should contain default values', function (done) {
+            configuration.reset().get('key').should.equal('value');
+            done();
+        });
+    })
 
 });
