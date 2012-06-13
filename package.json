@@ -2,7 +2,7 @@
     "author":"Thomas Fritz <fritztho@gmail.com>",
     "name":"configuration",
     "description":"Simple light-weight configuration and setting module extending EventEmitter",
-    "version":"0.0.3",
+    "version":"0.0.4",
     "homepage":"https://github.com/thomasfr/node-configuration",
     "scripts":{
         "test":"make test"
