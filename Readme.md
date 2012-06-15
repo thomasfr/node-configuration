@@ -9,7 +9,7 @@ Installation
 
 ```
 npm install configuration
-``` 
+```
 
 
 Usage
