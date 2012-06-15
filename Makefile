@@ -1,8 +1,12 @@
+
+REPORTER = spec
+
 test:
 	@./node_modules/.bin/mocha \
 		--require should \
-		-c \
+		--colors \
 		--ui bdd \
-		-R spec
+		--reporter $(REPORTER) \
+		--recursive
 
 .PHONY: test

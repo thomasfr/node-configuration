@@ -1,4 +1,4 @@
-var Configuration = require('../');
+var Configuration = require('../index');
 var should = require('should');
 
 describe('configuration', function () {
@@ -31,7 +31,7 @@ describe('configuration', function () {
             it("should contain the new value after modifying it", function (done) {
                 configuration.get('foo').should.equal('new value');
                 done();
-            })
+            });
         });
     });
 
@@ -149,6 +149,6 @@ describe('configuration', function () {
             configuration.reset().get('key').should.equal('value');
             done();
         });
-    })
+    });
 
 });

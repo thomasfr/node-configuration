@@ -4,6 +4,13 @@ Configuration
 Light-Weight module for node.js to help you to configure your node.js module(s) or
 administer your settings.
 
+Installation
+============
+
+```
+npm install configuration
+``` 
+
 
 Usage
 =====
