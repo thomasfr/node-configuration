@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/thomasfr/node-configuration.png)](http://travis-ci.org/thomasfr/node-configuration)
 Configuration
 =============
 
